@@ -11,7 +11,13 @@ describe Oystercard do
   end
 
   it 'checks that balance cannot go above 90' do
-    expect { subject.top_up(91) }.to raise_error "balance too high!"
+    expect { subject.top_up(91) }.to raise_error "Balance cannot exceed £90!"
+  end
+
+  it 'will deduct passed fare amount from balance' do
+    subject.top_up(15)
+    subject.deduct(10)
+    expect( subject.balance ).to eq 5
   end
 
 end
