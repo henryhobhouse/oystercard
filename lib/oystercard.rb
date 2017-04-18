@@ -7,6 +7,7 @@ def initialize
 end
 
 def top_up(amount)
+  if ( @balance += amount ) > 90; raise ArgumentError, "balance too high!" end
   @balance += amount
 end
 
