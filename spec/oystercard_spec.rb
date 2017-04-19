@@ -20,4 +20,23 @@ describe Oystercard do
     expect( subject.balance ).to eq 5
   end
 
+  describe '#in_journey state changes' do
+
+    it 'will have in_journey return false on oystercard creation' do
+      expect(subject.in_journey?).to eq false
+    end
+
+    it 'will alter in-journey to true if touch_in is called' do
+      subject.touch_in
+      expect(subject.in_journey?).to eq true
+    end
+
+    it 'will make in_journey false if touch_out called' do
+      subject.touch_in
+      subject.touch_out
+      expect(subject.in_journey?).to eq false
+    end
+
+  end
+
 end
