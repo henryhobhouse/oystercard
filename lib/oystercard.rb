@@ -19,6 +19,7 @@ def deduct(fare)
 end
 
 def touch_in
+  if balance < 1; raise ArgumentError, "balance too low!" end
   @in_journey = true
 end
 

@@ -2,7 +2,7 @@ require 'oystercard'
 
 describe Oystercard do
 
-  it 'assigns a balance to new card that can be accessed out of class' do
+  it 'assigns a balance of 0 to new card that can be accessed' do
     expect(subject.balance).to eq 0
   end
 
@@ -21,6 +21,7 @@ describe Oystercard do
   end
 
   describe '#in_journey state changes' do
+    before { subject.top_up(10) }
 
     it 'will have in_journey return false on oystercard creation' do
       expect(subject.in_journey?).to eq false
@@ -35,6 +36,16 @@ describe Oystercard do
       subject.touch_in
       subject.touch_out
       expect(subject.in_journey?).to eq false
+    end
+
+  end
+
+  describe '# raise error if balance too low' do
+
+    before { subject.top_up(0.99) }
+
+    it 'will raise error if touch_in is called with balance below £1' do
+      expect { subject.touch_in }.to raise_error "balance too low!"
     end
 
   end
