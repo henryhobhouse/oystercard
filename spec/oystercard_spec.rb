@@ -1,5 +1,4 @@
 require 'oystercard'
-require 'stations'
 
 describe Oystercard do
   describe '#oystercard can have value attributed and altered' do
@@ -40,13 +39,16 @@ describe Oystercard do
     end
   end
 
-  describe '#Station location is logged upon touch_in' do
-    it 'log a new station upon touch_in' do
-      subject.top_up(10)
+  describe '#will check that start_station is a result from stations instance' do
+    before do
+      allow_any_instance_of(Stations).to receive(:current_station) { "Westminster" }
+      subject.top_up(20)
       subject.touch_in
-      stations_ins = subject.stations.instance_variable_get(:@stations)
-      start_station = subject.instance_variable_get(:@start_station)
-      expect(stations_ins).to include(start_station)
+    end
+    it 'captures start station' do
+      expect(subject.start_station).to eq "Westminster"
     end
   end
+
+
 end

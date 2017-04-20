@@ -5,7 +5,7 @@ class Oystercard
   MIN_BALANCE = 1
   MIN_FARE = 2
 
-  attr_reader :balance
+  attr_reader :balance, :start_station
 
   def initialize
     @balance = 0
@@ -24,16 +24,18 @@ class Oystercard
 
   def touch_in
     raise 'balance too low!' if balance < MIN_BALANCE
-    @start_station = stations.current_station
+    @start_station = Stations.new.current_station
   end
 
   def touch_out
     deduct(MIN_FARE)
   end
 
+=begin
   def stations
     @stations ||= Stations.new
   end
+=end
 
   private :deduct
 end
