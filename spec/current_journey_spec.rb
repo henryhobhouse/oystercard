@@ -9,7 +9,7 @@ describe Current_journey do
 
      it 'will receive end station into a hash including time stamp' do
        subject.journey_end("Aldgate East")
-       expect(subject.result[:Finish_Station]).to include "Aldgate East"
+       expect(subject.last_journey[:Finish_Station]).to include "Aldgate East"
      end
   end
 end

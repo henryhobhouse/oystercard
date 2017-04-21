@@ -14,7 +14,7 @@ describe Oystercard do
 
     it 'will change journey instance to create journey_end hash' do
       subject.touch_out
-      expect(subject.journey_instance.result[:Status]).to eq :finished
+      expect(subject.journey_instance.last_journey[:Status]).to eq :finished
     end
   end
 

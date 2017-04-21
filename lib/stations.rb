@@ -3,7 +3,13 @@ class Stations
   attr_reader :stations
 
   def initialize
-    @stations = ['Westminster', 'Kennington', 'Aldgate east', 'Tower Hill', 'Penge East']
+    @stations = [
+      { station: 'Westminster', zone: 1 },
+      { station: 'Kennington', zone: 2 },
+      { station: 'Aldgate east', zone: 1 },
+      { station: 'Tower Hill', zone: 4 },
+      { station: 'Penge East', zone: 5 },
+    ]
   end
 
   def current_station

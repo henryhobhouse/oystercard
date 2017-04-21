@@ -22,7 +22,8 @@ class Oystercard
   def touch_out
     @balance.deduct(MIN_FARE)
     @exit_station = stations_instance.current_station
-    journey_log(journey_instance.journey_end(@exit_station))
+    journey_instance.journey_end(@exit_station)
+    journey_log(journey_instance.last_journey)
   end
 
   def stations_instance
