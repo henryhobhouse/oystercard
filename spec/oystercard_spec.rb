@@ -3,9 +3,18 @@ require 'oystercard'
 describe Oystercard do
 
   describe '#in_journey state changes' do
-    before { subject.balance.top_up(10) }
-    it 'will not have entry station pre journey' do
-      expect(subject.start_station).to eq nil
+    before do
+      subject.balance.top_up(10)
+      subject.touch_in
+    end
+
+    it 'will change journey instance to create journey start hash' do
+      expect(subject.journey_instance.journey_start("test")[:Status]).to eq :started
+    end
+
+    it 'will change journey instance to create journey_end hash' do
+      subject.touch_out
+      expect(subject.journey_instance.result[:Status]).to eq :finished
     end
   end
 
