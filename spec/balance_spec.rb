@@ -14,5 +14,9 @@ describe Balance do
       message = "Balance cannot exceed £#{Balance::MAX_BALANCE}!"
       expect { subject.top_up(91) }.to raise_error message
     end
+
+    it "Error on touch_in with MIN_BALANCE of £#{Balance::MIN_BALANCE}" do
+      expect { subject.balance_low? }.to raise_error 'Balance too low!'
+    end
   end
 end

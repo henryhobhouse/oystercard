@@ -5,7 +5,6 @@ require './lib/journey_log.rb'
 
 # Defines behaviour for balance based on user interaction with stations
 class Oystercard
-  MIN_FARE = 2
 
   attr_reader :balance, :start_station, :journey_log
 
@@ -14,13 +13,13 @@ class Oystercard
   end
 
   def touch_in
-    raise 'Balance too low!' if @balance.value < Balance::MIN_BALANCE
+    @balance.balance_low?
     @start_station = stations_instance.current_station
     journey_instance.journey_start(@start_station)
   end
 
   def touch_out
-    @balance.deduct(MIN_FARE)
+    @balance.deduct(Balance::MIN_FARE)
     @exit_station = stations_instance.current_station
     journey_instance.journey_end(@exit_station)
     journey_log(journey_instance.last_journey)

@@ -2,6 +2,7 @@
 class Balance
   MAX_BALANCE = 90
   MIN_BALANCE = 1
+  MIN_FARE = 2
 
   attr_reader :value
 
@@ -10,13 +11,22 @@ class Balance
   end
 
   def top_up(credit)
-    if (@value + credit) > MAX_BALANCE
-      raise "Balance cannot exceed £#{MAX_BALANCE}!"
-    end
+    balance_over_max?(credit)
     @value += credit
   end
 
   def deduct(fare)
     @value -= fare
   end
+
+  def balance_low?
+    raise 'Balance too low!' if @value < MIN_BALANCE
+  end
+
+  def balance_over_max?(credit)
+    if (@value + credit) > MAX_BALANCE
+      raise "Balance cannot exceed £#{MAX_BALANCE}!"
+    end
+  end
+
 end
