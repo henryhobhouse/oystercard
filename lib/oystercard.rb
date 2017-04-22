@@ -14,7 +14,9 @@ class Oystercard
 
   def touch_in
     @balance.balance_low?
-    if journey_current.journey == nil || journey_current.journey[:Status] == :started
+    if journey_current.journey == nil
+      journey_current.journey_start(stations_instance.current_station)
+    elsif journey_current.journey[:Status] == :started
       error_process(:touch_in_error)
     end
     journey_current.journey_start(stations_instance.current_station)
