@@ -3,6 +3,7 @@ class Balance
   MAX_BALANCE = 90
   MIN_BALANCE = 1
   MIN_FARE = 2
+  PENALTY_FARE = 6
 
   attr_reader :value
 
@@ -17,6 +18,10 @@ class Balance
 
   def deduct(fare)
     @value -= fare
+  end
+
+  def penalty
+    @value -= PENALTY_FARE
   end
 
   def balance_low?

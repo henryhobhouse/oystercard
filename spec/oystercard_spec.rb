@@ -9,12 +9,16 @@ describe Oystercard do
     end
 
     it 'will change journey instance to create journey start hash' do
-      expect(subject.journey_instance.journey_start("test")[:Status]).to eq :started
+      expect(subject.journey_current.journey_start("test")[:Status]).to eq :started
     end
 
     it 'will change journey instance to create journey_end hash' do
       subject.touch_out
-      expect(subject.journey_instance.last_journey[:Status]).to eq :finished
+      expect(subject.journey_current.last_journey[:Status]).to eq :finished
+    end
+
+    it 'will check to see if journey status is :started on touch_in' do
+      expect(subject.touch_in).to change(subject.journey_log.complete_journey[0][:error]).to :double_touched_in
     end
   end
 
@@ -32,9 +36,7 @@ describe Oystercard do
       subject.touch_in
     end
     it 'captures start station' do
-      expect(subject.stations_instance.stations).to include subject.start_station
+      expect(subject.stations_instance.stations).to include subject.stations_instance.current_station
     end
   end
-
-
 end
